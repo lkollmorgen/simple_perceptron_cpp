@@ -1,7 +1,7 @@
 # Simple perceptron project
 # Laura Kollmorgen
 #
-# Last updated: 7/29/24
+# Last updated: 8/1/24
 #
 # Directory Path: simple_perceptron/Test
 #
@@ -38,6 +38,7 @@ test_source_s_percept: $(INC_DIR)/s_percept.h
 	cd $(BIN_DIR); ./test_source_s_percept
 
 all:
-#	cd ../Source; make all
 	make test_source_s_percept
 
+clean:
+	cd $(BIN_DIR); rm $(EXECUTABLES)

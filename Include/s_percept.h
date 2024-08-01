@@ -1,7 +1,7 @@
 // Simple perceptron project
 // Laura Kollmorgen
 //
-// Last updated: 7/29/24
+// Last updated: 8/1/24
 //
 // Directory Path: simple_perceptron/Include
 //
@@ -10,6 +10,8 @@
 //
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <sstream>
 
 void test_printer();
 
@@ -17,24 +19,25 @@ void test_printer();
 class Perceptron
 {
     private:
-        //int rows;
-        //int cols;
-        std::string data_path;
-        int num_epochs;
+        int _rows = 0;
+        int _cols = 0;
+        std::string _data_path;
+        int _num_epochs;
 
-        std::vector<std::vector <float>> features;
-        std::vector<float> weights;
-        std::vector<float> biases;
-        std::vector<int> labels;
+        std::vector<std::vector<float>> _features;
+        std::vector<float> _weights;
+        std::vector<float> _biases;
+        std::vector<int> _labels;
 
         // intermediate values prior to input in activation function
-        std::vector<float> z;
-        float learning_rate = 0.05;
+        std::vector<float> _z;
+        float _learning_rate = 0.05;
 
-        std::vector<int> predictions;
+        std::vector<int> _predictions;
 
     public:
-        Perceptron(std::string data_path = "../Data/Single Layer Perceptron Dataset.csv");
+        Perceptron(std::string _data_path,
+                    int _num_epochs);
         ~Perceptron();
 
         // set features and labels

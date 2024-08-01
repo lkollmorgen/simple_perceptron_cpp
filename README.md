@@ -17,7 +17,12 @@ make all
 - included single layer perceptron sample dataset
 - began class method implementaion in `source_s_percept.cpp` 
 
+8/1:
+- updated makefiles for cleaning objects/executables
+- began implementation of read_data in `source_s_percept.cpp`
+    - functionality to gather size of vector from .csv
 ## TODO
+- functionality to read _features, _targets
 
 ## Sources
 #### Dataset

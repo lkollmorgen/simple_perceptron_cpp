@@ -5,7 +5,9 @@
 
 int main(void)
 {
-    test_printer();
+    int epochs = 3;
+    std::string path = "../Data/Single Layer Perceptron Dataset.csv";
+    Perceptron p = Perceptron(path, 3);
 
     return 0;
 }

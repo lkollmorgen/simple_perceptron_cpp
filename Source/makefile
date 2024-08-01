@@ -1,7 +1,7 @@
 # Simple perceptron project
 # Laura Kollmorgen
 #
-# Last updated: 7/29/24
+# Last updated: 8/1/24
 #
 # Directory Path: simple_perceptron/Source
 # Adapted from: 
@@ -37,4 +37,7 @@ libpercept.a: $(PERCEPT_OBJS)
 all:
 	make source_s_percept.o
 	make libpercept.a
+
+clean:
+	cd $(LIB_DIR) rm $(PERCEPT_LIB)
 
