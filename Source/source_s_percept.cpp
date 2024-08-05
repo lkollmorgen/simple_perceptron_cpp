@@ -6,8 +6,10 @@
 #include "s_percept.h"
 
 //constructor
-Perceptron::Perceptron(std::string file_path, int num_epochs)
-    : _data_path(file_path), _num_epochs(num_epochs)
+Perceptron::Perceptron(std::string file_path, int num_epochs, 
+                        int rows, int cols)
+    : _rows(rows), _cols(cols), _data_path(file_path), _num_epochs(num_epochs),
+    _features(rows, std::vector<float>(cols))
     {
         read_data();
     }
@@ -37,20 +39,50 @@ void Perceptron::read_data() {
     data_file.open(_data_path);
     getline(data_file, line, '\n');
     getline(data_file, line, '\n'); //skip csv header
+    getline(ss,s,',');
 
+    while(getline(ss,s,',')) {
+        std::cout << s << ' ';
+    }
+    std::cout << std::endl;
 //generate data vector
-    _features.resize(_rows, std::vector<int>(_cols));
+    _features.resize(_rows, std::vector<float>(_cols));
+    for (int i = 0; i < _rows; ++i)
+    {
+        getline(ss,s,','); // skip row number
+        for (int j = 0; j < _cols; ++j)
+        {
+            std::cout << s << " ";
+            _features[i][j] = std::stof(s);
+            getline(ss,s,',');
+        }
+        _labels.push_back(std::stoi(s));
+        getline(data_file, line, '\n');
+        std::cout << std::endl;
+    }
+    // print_features();
+    // print_labels();
+}
+
+void Perceptron::print_features() const {
     for (int i = 0; i < _rows; ++i)
     {
         for (int j = 0; j < _cols; ++j)
         {
-            _features[i][j] = 
+            std::cout << _features[i][j] << " ";
         }
+        std::cout << std::endl;
     }
-
-
+    std::cout << std::endl;
 }
 
+void Perceptron::print_labels() const {
+    for (int i = 0; i < _rows; ++i)
+    {
+        std::cout << _labels[i] << " ";
+    }
+    std::cout << std::endl;
+}
 
 /*
 154 void CellularAutomata::initializeGrid()

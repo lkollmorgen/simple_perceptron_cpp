@@ -19,8 +19,8 @@ void test_printer();
 class Perceptron
 {
     private:
-        int _rows = 0;
-        int _cols = 0;
+        int _rows;
+        int _cols;
         std::string _data_path;
         int _num_epochs;
 
@@ -37,7 +37,7 @@ class Perceptron
 
     public:
         Perceptron(std::string _data_path,
-                    int _num_epochs);
+                    int _num_epochs, int _row=0, int _cols=0);
         ~Perceptron();
 
         // set features and labels
@@ -65,7 +65,13 @@ class Perceptron
         void print_accuracy() const;
 
         //debugging method for viewing weights & biases        
-        void print_ws_bs() const; 
+        void print_ws_bs() const;
+
+        //debugging method for viewing feautures
+        void print_features() const;
+
+        //debugging method for viewing labels
+        void print_labels() const;
 
 
 

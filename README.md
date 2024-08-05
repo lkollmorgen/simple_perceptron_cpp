@@ -11,16 +11,22 @@ make all
 ```
 
 ## Updates
+8/5:
+- working through read_data bug
+- created print_features and print_labels functions for debugging
+
+8/1:
+- updated makefiles for cleaning objects/executables
+- began implementation of read_data in `source_s_percept.cpp`
+    - functionality to gather size of vector from .csv
+
 7/29:
 - created directories
 - `s_percept.h` class outline
 - included single layer perceptron sample dataset
 - began class method implementaion in `source_s_percept.cpp` 
 
-8/1:
-- updated makefiles for cleaning objects/executables
-- began implementation of read_data in `source_s_percept.cpp`
-    - functionality to gather size of vector from .csv
+
 ## TODO
 - functionality to read _features, _targets
 
