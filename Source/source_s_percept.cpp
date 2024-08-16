@@ -2,6 +2,8 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <ctime>
+#include <cstdlib>
 
 #include "s_percept.h"
 
@@ -11,11 +13,18 @@ Perceptron::Perceptron(std::string file_path, int num_epochs,
     : _rows(rows), _cols(cols), _data_path(file_path), _num_epochs(num_epochs),
     _features(rows, std::vector<float>(cols))
     {
+        //seed random number
+        unsigned int seed = 1;
+        //change seed to time(0) for random weight generation
+        srand (seed);
+        save_dims();
         read_data();
+
+        init_ws_bs();
     }
 Perceptron::~Perceptron(){}
 
-void Perceptron::read_data() {
+void Perceptron::save_dims() {
     std::fstream data_file; //data file to be read
     std::string line;
     std::string s;  //for word-by-word processing
@@ -28,40 +37,72 @@ void Perceptron::read_data() {
     std::stringstream ss(line); //split line into stringstream
     getline(ss,s,','); // skip row numbers
     while(getline(ss,s,',')) { _cols++; }
+    _cols --; //remove label
 
     //get number of rows
     while(getline(data_file, line, '\n')) { _rows++; }
-    std::cout << "rows: " << _rows;
-    std::cout << ", columns: " << _cols << std::endl;
+    
+    // std::cout << "rows: " << _rows;
+    // std::cout << ", columns: " << _cols << std::endl;
 
+}
+
+void Perceptron::read_data() {
     //reset position to top of csv
-    data_file.close();
+    std::fstream data_file;
+    std::string line;
+    std::string s;
+
     data_file.open(_data_path);
     getline(data_file, line, '\n');
     getline(data_file, line, '\n'); //skip csv header
-    getline(ss,s,',');
-
-    while(getline(ss,s,',')) {
-        std::cout << s << ' ';
-    }
-    std::cout << std::endl;
+    
 //generate data vector
     _features.resize(_rows, std::vector<float>(_cols));
     for (int i = 0; i < _rows; ++i)
     {
-        getline(ss,s,','); // skip row number
+        std::stringstream ss(line); //split line into stringstream
+        getline(ss,s,',');
+        getline(ss,s,',');
         for (int j = 0; j < _cols; ++j)
         {
-            std::cout << s << " ";
             _features[i][j] = std::stof(s);
             getline(ss,s,',');
         }
         _labels.push_back(std::stoi(s));
         getline(data_file, line, '\n');
-        std::cout << std::endl;
     }
     // print_features();
     // print_labels();
+}
+
+void Perceptron::init_ws_bs() {
+    float random_f;
+    for(int i = 0; i < _cols; i++){
+        random_f = static_cast<float> (rand()) /static_cast<float> (RAND_MAX);
+        _weights.push_back(random_f);
+    }
+
+    for(int i = 0; i < _cols; i++){
+        _biases.push_back(1);
+    }
+    print_ws_bs();
+}
+
+void Perceptron::print_ws_bs() const {
+    std::cout << "weights: " << std::endl;
+    for (int i = 0; i < _cols; ++i)
+    {
+        std::cout << _weights[i] << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "biases: " << std::endl;
+    for (int i = 0; i < _cols; ++i)
+    {
+        std::cout << _biases[i] << " ";
+    }
+    std::cout << std::endl;
 }
 
 void Perceptron::print_features() const {
@@ -81,7 +122,7 @@ void Perceptron::print_labels() const {
     {
         std::cout << _labels[i] << " ";
     }
-    std::cout << std::endl;
+    std::cout << std::endl << std::endl;
 }
 
 /*

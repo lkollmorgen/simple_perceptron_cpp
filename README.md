@@ -11,6 +11,10 @@ make all
 ```
 
 ## Updates
+8/16/2024:
+- class can correctly save data into private members
+- separated dimension-evaluation script into separate save_dims function
+
 8/5:
 - working through read_data bug
 - created print_features and print_labels functions for debugging
@@ -28,7 +32,8 @@ make all
 
 
 ## TODO
-- functionality to read _features, _targets
+- begin weight, bias initialization functions
+- begin intermediate calculation
 
 ## Sources
 #### Dataset

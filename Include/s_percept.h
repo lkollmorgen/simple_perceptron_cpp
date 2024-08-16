@@ -8,10 +8,14 @@
 // Include file for c++ class for a simple perceptron
 //
 //
+#pragma once
+
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <ctime>
+#include <cstdlib>
 
 void test_printer();
 
@@ -40,6 +44,8 @@ class Perceptron
                     int _num_epochs, int _row=0, int _cols=0);
         ~Perceptron();
 
+        //save dimensions of features 
+        void save_dims();
         // set features and labels
         void read_data();
 
