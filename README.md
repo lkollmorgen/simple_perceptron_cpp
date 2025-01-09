@@ -11,6 +11,11 @@ make all
 ```
 
 ## Updates
+1/8/2025:
+- completed all functions to complete the simple perceptron
+- removed '1' feature from sample data
+- achieved max of `.670` accuracy after `150` epochs
+
 8/16/2024:
 - class can correctly save data into private members
 - separated dimension-evaluation script into separate save_dims function
@@ -32,8 +37,9 @@ make all
 
 
 ## TODO
-- begin weight, bias initialization functions
-- begin intermediate calculation
+- double check weight update function
+- double check heaviside function
+- update to cmake
 
 ## Sources
 #### Dataset

@@ -38,6 +38,7 @@ test_source_s_percept: $(INC_DIR)/s_percept.h
 	cd $(BIN_DIR); ./test_source_s_percept
 
 all:
+	cd ../Source; make all
 	make test_source_s_percept
 
 clean:
