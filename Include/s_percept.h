@@ -1,7 +1,7 @@
 // Simple perceptron project
 // Laura Kollmorgen
 //
-// Last updated: 1.8.2025
+// Last updated: 1.21.2025
 //
 // Directory Path: simple_perceptron/Include
 //
@@ -26,6 +26,7 @@ class Perceptron
         int _rows;
         int _cols;
         std::string _data_path;
+        bool _verbose;
 
         std::vector<std::vector<float>> _features;
         std::vector<float> _weights;
@@ -42,7 +43,7 @@ class Perceptron
 
     public:
         Perceptron(std::string _data_path,
-                    int _num_epochs, int _row=0, int _cols=0);
+                    int _num_epochs, bool _verbose, int _row=0, int _cols=0);
         ~Perceptron();
 
         //save dimensions of features 

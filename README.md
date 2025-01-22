@@ -11,6 +11,13 @@ make all
 ```
 
 ## Updates
+
+1/21/2025:
+- created a verbose flag to print whatever is needed at each epoch
+- found new dataset (linked below)
+- stuff is broken:
+    - basically, accuracy does not change no matter the number of epochs... IDK what's going on, will check on it later.
+
 1/8/2025:
 - completed all functions to complete the simple perceptron
 - removed '1' feature from sample data
@@ -42,8 +49,9 @@ make all
 - update to cmake
 
 ## Sources
-#### Dataset
-The dataset was downloaded from Kaggle user Abir Hasan from [this page](https://www.kaggle.com/datasets/abirhasan1703100/single-layer-perceptron-datasetsmall?resource=download)
+#### Datasets
+The first dataset was downloaded from Kaggle user Abir Hasan from [this page](https://www.kaggle.com/datasets/abirhasan1703100/single-layer-perceptron-datasetsmall?resource=download)<br>
+The second dataset is fairly popular dataset found [here](https://machinelearningmastery.com/standard-machine-learning-datasets/)
 #### Single Layer Perceptron Theory
 https://www.geeksforgeeks.org/what-is-perceptron-the-simplest-artificial-neural-network/#
 #### Reading CSV file

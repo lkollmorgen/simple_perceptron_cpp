@@ -1,3 +1,14 @@
+// Simple perceptron project
+// Laura Kollmorgen
+//
+// Last updated: 1.21.2025
+//
+// Directory Path: simple_perceptron/Source
+//
+// File holding source scripts to be compiled into a static library
+//
+//
+
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -10,9 +21,9 @@
 
 //constructor
 Perceptron::Perceptron(std::string file_path, int num_epochs, 
-                        int rows, int cols)
+                        bool verb, int rows, int cols)
     : _rows(rows), _cols(cols), _data_path(file_path),
-    _features(rows, std::vector<float>(cols))
+    _features(rows, std::vector<float>(cols)), _verbose(verb)
     {
         //seed random number
         unsigned int seed = 1;
@@ -36,18 +47,19 @@ void Perceptron::save_dims() {
 //get size of data
     //get number of columns
     getline(data_file, line, '\n');
-    getline(data_file, line, '\n'); //skip csv header
+    // getline(data_file, line, '\n'); //skip csv header
     std::stringstream ss(line); //split line into stringstream
-    getline(ss,s,','); // skip row numbers
+    // getline(ss,s,','); // skip row numbers
     while(getline(ss,s,',')) { _cols++; }
     _cols --; //remove label
 
     //get number of rows
     while(getline(data_file, line, '\n')) { _rows++; }
     
-    // std::cout << "rows: " << _rows;
-    // std::cout << ", columns: " << _cols << std::endl;
-
+    if(_verbose){
+        std::cout << "rows: " << _rows;
+        std::cout << ", columns: " << _cols << std::endl;
+    }
 }
 
 void Perceptron::read_data() {
@@ -86,10 +98,14 @@ void Perceptron::init_ws_bs() {
 
     _bias = 1;
 
-    print_ws_bs();
+    if(_verbose) {
+        std::cout << "Initial weights: " << std::endl;
+        print_ws_bs();
+    }
 }
 
 void Perceptron::forward() {
+    //generates a new set of intermediates
     _z.clear();
     for(int i = 0; i < _rows; i++) {
         double z = 0;
@@ -144,20 +160,26 @@ void Perceptron::update_weights() {
 
 void Perceptron::fit(int epochs) {
     for(int i = 0; i < epochs; i++) {
-        std::cout << "Epoch " << i << std::endl;
         forward();
-        //print_intermediates();
         set_threshold();
         
         _predictions = predict(_z);
-        //print_predictions();
-        //print_labels();
-
+        
         calc_loss(_predictions,_labels);
-        update_weights();
-        print_accuracy();
-        std::cout << std::endl;
+        update_weights();        
+        
+        if(_verbose) {
+            std::cout << "Epoch " << i << std::endl;
+            // print_intermediates();
+            // print_predictions();
+            // print_labels();
+            std::cout << "accuracy: ";
+            print_accuracy();
+            std::cout << std::endl;
+        }
     }
+    std::cout << "final accuracy after " << epochs << " epochs: ";
+    print_accuracy(); 
 }
 
 void Perceptron::print_accuracy() const{
@@ -174,7 +196,7 @@ void Perceptron::print_accuracy() const{
         }
     }
     double accuracy = (tp + tn) / (tp + tn + fp + fn);
-    std::cout << "accuracy: " << accuracy << std::endl;
+    std::cout << accuracy << std::endl;
 }
 
 void Perceptron::print_ws_bs() const {
@@ -215,17 +237,4 @@ void Perceptron::print_predictions() const {
     std::cout << std::endl;
 }
 
-/*
-154 void CellularAutomata::initializeGrid()
-155 {
-156     grid.resize(gridHeight, std::vector<int>(gridWidth));
-157     for (int i = 0; i < gridHeight; ++i)
-158     {
-159         for (int j = 0; j < gridWidth; ++j)
-160         {
-161             grid[i][j] = initFunc(i, j, num_states);
-162         }
-163     }
-164 }
-*/
 
